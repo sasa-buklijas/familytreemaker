@@ -1,14 +1,22 @@
 import os
-#import sys
+import sys
 from pathlib import Path
 
-generated_file = 'generated.txt'
-input_dir = 'input'
+generated_file: str = 'generated.txt'
+input_dir: str= 'input'
+
 # input test files are called i_n.txt
     # where n is number of test
-input_files = sorted([i for i in Path.cwd().glob(f'{input_dir}{os.sep}i_*.txt')])
+if len(sys.argv) == 1:  # run all tests
+    input_files = sorted([i for i in Path.cwd().glob(f'{input_dir}{os.sep}i_*.txt')])
+else:
+    input_files: list = []
+    for i in sys.argv[1:]:
+        _ = f'i_{i}.txt'
+        input_files.append(_)
+
 for input_file in input_files:
-    input_file = input_file.name    # get just filename and convert to str
+    #input_file = input_file.name    # get just filename and convert to str
     print(f'TestCase: {input_file}')
 
     # expected output files are called o_n.txt
